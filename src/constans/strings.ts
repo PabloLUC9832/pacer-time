@@ -1,5 +1,10 @@
 export const strings = {
   appName: "Pacer Time",
+  pages: {
+    home: "Inicio",
+    signUp: 'Crear cuenta',
+    signIn: 'Iniciar sesión',
+  },
   login: {
     signUp: "Crear cuenta",
     signUpInstructions: "Ingresa tus datos para crear una cuenta",

@@ -12,6 +12,7 @@ import {signUp} from "@/lib/actions/auth.actions";
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {toast} from "sonner";
+import {InputPassword} from "@/components/ui/inputPassword";
 
 export default function SignUpFormFields() {
 
@@ -159,10 +160,9 @@ export default function SignUpFormFields() {
           <Field className="grid grid-cols-2 gap-4">
             <Field>
               <FieldLabel htmlFor="password">{strings.login.password}</FieldLabel>
-              <Input
+              <InputPassword
                 {...form.register("password")}
                 id="password"
-                type="password"
                 placeholder={strings.login.password}
                 aria-invalid={form.formState.errors.password ? "true" : "false"}
               />
@@ -176,10 +176,9 @@ export default function SignUpFormFields() {
               <FieldLabel htmlFor="confirm-password">
                 {strings.login.confirmPassword}
               </FieldLabel>
-              <Input
+              <InputPassword
                 {...form.register("confirmPassword")}
                 id="confirm-password"
-                type="password"
                 placeholder={strings.login.password}
                 aria-invalid={form.formState.errors.confirmPassword ? "true" : "false"}
               />

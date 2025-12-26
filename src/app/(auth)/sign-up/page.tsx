@@ -1,6 +1,12 @@
 import {GalleryVerticalEnd} from "lucide-react";
 import {SignUpForm} from "@/components/auth/sign-up/SignUpForm";
 import Link from "next/link";
+import {Metadata} from "next";
+import {strings} from "@/constans/strings";
+
+export const metadata: Metadata = {
+  title: strings.pages.signUp,
+}
 
 export default function Page() {
   return (
