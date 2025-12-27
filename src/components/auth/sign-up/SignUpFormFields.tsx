@@ -55,7 +55,7 @@ export default function SignUpFormFields() {
     const result = await signUp(formData);
 
     if (result.success) {
-      toast.success(`${strings.login.signUpSuccessful}`);
+      toast.success(`${strings.auth.signUp.success}`);
       form.reset();
       router.push("/sign-in");
     } else {
@@ -93,12 +93,12 @@ export default function SignUpFormFields() {
       )}
       <FieldGroup>
         <Field>
-          <FieldLabel htmlFor="name">{strings.login.name}</FieldLabel>
+          <FieldLabel htmlFor="name">{strings.auth.fields.name}</FieldLabel>
           <Input
             {...form.register("name")}
             id="name"
             type="text"
-            placeholder={strings.login.name}
+            placeholder={strings.auth.fields.name}
             aria-invalid={form.formState.errors.name ? "true" : "false"}
           />
           { form.formState.errors.name && (
@@ -108,12 +108,12 @@ export default function SignUpFormFields() {
           )}
         </Field>
         <Field>
-          <FieldLabel htmlFor="last-name">{strings.login.lastName}</FieldLabel>
+          <FieldLabel htmlFor="last-name">{strings.auth.fields.lastName}</FieldLabel>
           <Input
             {...form.register("lastName")}
             id="last-name"
             type="text"
-            placeholder={strings.login.lastName}
+            placeholder={strings.auth.fields.lastName}
             aria-invalid={form.formState.errors.lastName ? "true" : "false"}
           />
           { form.formState.errors.lastName && (
@@ -123,7 +123,7 @@ export default function SignUpFormFields() {
           )}
         </Field>
         <Field>
-          <FieldLabel htmlFor="phone-number">{strings.login.phoneNumber}</FieldLabel>
+          <FieldLabel htmlFor="phone-number">{strings.auth.fields.phoneNumber}</FieldLabel>
           <Input
             {...form.register("phoneNumber")}
             id="phone-number"
@@ -142,12 +142,12 @@ export default function SignUpFormFields() {
           )}
         </Field>
         <Field>
-          <FieldLabel htmlFor="email">{strings.login.email}</FieldLabel>
+          <FieldLabel htmlFor="email">{strings.auth.fields.email}</FieldLabel>
           <Input
             {...form.register("email")}
             id="email"
             type="email"
-            placeholder={strings.login.email}
+            placeholder={strings.auth.fields.email}
             aria-invalid={form.formState.errors.email ? "true" : "false"}
           />
           { form.formState.errors.email && (
@@ -159,11 +159,11 @@ export default function SignUpFormFields() {
         <Field>
           <Field className="grid grid-cols-2 gap-4">
             <Field>
-              <FieldLabel htmlFor="password">{strings.login.password}</FieldLabel>
+              <FieldLabel htmlFor="password">{strings.auth.fields.password}</FieldLabel>
               <InputPassword
                 {...form.register("password")}
                 id="password"
-                placeholder={strings.login.password}
+                placeholder={strings.auth.fields.password}
                 aria-invalid={form.formState.errors.password ? "true" : "false"}
               />
               { form.formState.errors.password && (
@@ -174,12 +174,12 @@ export default function SignUpFormFields() {
             </Field>
             <Field>
               <FieldLabel htmlFor="confirm-password">
-                {strings.login.confirmPassword}
+                {strings.auth.fields.confirmPassword}
               </FieldLabel>
               <InputPassword
                 {...form.register("confirmPassword")}
                 id="confirm-password"
-                placeholder={strings.login.password}
+                placeholder={strings.auth.fields.password}
                 aria-invalid={form.formState.errors.confirmPassword ? "true" : "false"}
               />
               { form.formState.errors.confirmPassword && (
@@ -190,7 +190,7 @@ export default function SignUpFormFields() {
             </Field>
           </Field>
           <FieldDescription>
-            {strings.login.passwordRequirements}
+            {strings.auth.fields.passwordRequirements}
           </FieldDescription>
         </Field>
         <Field>
@@ -198,10 +198,10 @@ export default function SignUpFormFields() {
             type="submit"
             disabled={isSubmitting}
           >
-            {isSubmitting ? strings.login.creatingAccount : strings.login.createAccount}
+            {isSubmitting ? strings.auth.signUp.loading : strings.auth.signUp.title}
           </Button>
           <FieldDescription className="text-center">
-            {strings.login.haveAccount} <Link href="/sign-in">{strings.login.signIn}</Link>
+            {strings.auth.signUp.haveAnAccount} <Link href="/sign-in">{strings.auth.signIn.title}</Link>
           </FieldDescription>
         </Field>
       </FieldGroup>

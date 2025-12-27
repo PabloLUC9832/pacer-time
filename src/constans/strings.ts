@@ -1,35 +1,44 @@
 export const strings = {
-  appName: "Pacer Time",
+  appName: 'Pacer Time',
   pages: {
-    home: "Inicio",
+    home: 'Inicio',
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
   },
-  login: {
-    signUp: "Crear cuenta",
-    signUpInstructions: "Ingresa tus datos para crear una cuenta",
-    name: "Nombre",
-    lastName: "Apellidos",
-    email: "Correo electrónico",
-    password: "Contraseña",
-    confirmPassword: "Confirmar contraseña",
-    phoneNumber: "Número de teléfono",
-    passwordRequirements: "La contraseña debe tener al menos 8 caracteres.",
-    haveAccount: "¿Ya tienes una cuenta?",
-    createAccount: "Crear cuenta",
-    creatingAccount: "Creando cuenta...",
-    signUpSuccessful: "¡Cuenta creada exitosamente!",
-    signIn: "Iniciar sesión",
-    forgotPassword: "¿Olvidaste tu contraseña?",
-    noAccount: "¿No tienes una cuenta?",
-    signUpRequirements: {
+  auth: {
+    signUp: {
+      title: 'Crear cuenta',
+      instructions: 'Ingresa tus datos para crear una cuenta',
       name: 'El nombre debe tener al menos 1 carácter',
       lastName: 'El apellido debe tener al menos 1 carácter',
       phoneNumber: 'El número de teléfono debe tener el formato 229-100-1234',
       email: 'Email inválido',
-      password: 'La contraseña debe tener al menos 8 caracteres',
-      passwordDontMatch: 'Las contraseñas no coinciden'
-
+      password: 'Contraseña inválida',
+      passwordDontMatch: 'Las contraseñas no coinciden',
+      error: 'Ha ocurrido un error inesperado al crear la cuenta.',
+      existingEmail: 'Ya existe una cuenta con este correo electrónico.',
+      haveAnAccount: '¿Ya tienes cuenta?',
+      loading: 'Creando cuenta...',
+      success: '¡Cuenta creada exitosamente!',
+    },
+    signIn: {
+      title: 'Iniciar sesión',
+      loading: 'Iniciando sesión...',
+      success: '¡Inicio de sesión exitoso!',
+      error: 'Email o contraseña incorrectos',
+      instructions: 'Ingresa tu email y contraseña para iniciar sesión'
+    },
+    fields: {
+      name: 'Nombre',
+      lastName: 'Apellidos',
+      email: 'Correo electrónico',
+      password: 'Contraseña',
+      confirmPassword: 'Confirmar contraseña',
+      phoneNumber: 'Número de teléfono',
+      passwordRequirements: 'La contraseña debe tener al menos 8 caracteres.',
+      forgotPassword: '¿Olvidaste tu contraseña?',
+      noAccount: '¿No tienes cuenta?',
+      checkFields: 'Por favor verifica los campos del formulario.',
     },
   }
 }

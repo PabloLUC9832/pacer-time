@@ -3,25 +3,31 @@ import {strings} from "@/constans/strings";
 
 const signUpSchema  =
   z.object({
-    name: z.string().min(1, `${strings.login.signUpRequirements.name}`),
-    lastName: z.string().min(1, `${strings.login.signUpRequirements.lastName}`),
-    phoneNumber: z.string().regex(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, `${strings.login.signUpRequirements.phoneNumber}`),
-    email: z.email(`${strings.login.signUpRequirements.email}`),
-    password: z.string().min(8, `${strings.login.signUpRequirements.password}`),
-    confirmPassword: z.string().min(8, `${strings.login.signUpRequirements.password}`),
+    name: z.string().min(1, `${strings.auth.signUp.name}`),
+    lastName: z.string().min(1, `${strings.auth.signUp.lastName}`),
+    phoneNumber: z.string().regex(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, `${strings.auth.signUp.phoneNumber}`),
+    email: z.email(`${strings.auth.signUp.email}`),
+    password: z.string().min(8, `${strings.auth.signUp.password}`),
+    confirmPassword: z.string().min(8, `${strings.auth.signUp.password}`),
   })
   .refine(
     (data) =>
       data.password === data.confirmPassword, {
-        message: `${strings.login.signUpRequirements.passwordDontMatch}`,
+        message: `${strings.auth.signUp.passwordDontMatch}`,
         path: ["confirmPassword"],
       }
   );
 
+const signInSchema =
+  z.object({
+    email: z.email(`${strings.auth.signUp.email}`),
+    password: z.string().min(8, `${strings.auth.signUp.password}`),
+  });
+
 export type ActionSuccessResponse = {
     success: true;
     data: {
-      userId: string;
+      userId?: string;
       email: string;
     };
 }
@@ -32,6 +38,7 @@ export type ActionErrorResponse = {
   fieldErrors?: Record<string, string[]>;
 }
 
-export { signUpSchema };
+export { signUpSchema, signInSchema };
 export type SignUpFormData = z.infer<typeof signUpSchema>;
+export type SignInFormData = z.infer<typeof signInSchema>;
 export type ActionResponse = ActionSuccessResponse | ActionErrorResponse;

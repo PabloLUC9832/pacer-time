@@ -1,10 +1,13 @@
 "use server";
 
-import {ActionResponse, signUpSchema} from "@/lib/validations/auth.schema";
+import {ActionResponse, signInSchema, signUpSchema} from "@/lib/validations/auth.schema";
 import prisma from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { Prisma } from "../../../generated/prisma/client";
+import {strings} from "@/constans/strings";
+import {auth, signIn as nextAuthSignIn} from "@/lib/auth";
+import {AuthError} from "next-auth";
 
 export async function signUp(formData: FormData): Promise<ActionResponse> {
 
@@ -49,7 +52,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
 
       return {
         success: false,
-        error: `Por favor verifica los campos del formulario.`,
+        error: strings.auth.fields.checkFields,
         fieldErrors: z.flattenError(error).fieldErrors,
       }
     }
@@ -59,7 +62,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
       if (error.code === "P2002") {
         return {
           success: false,
-            error: "Ya existe una cuenta con este correo electrónico.",
+          error: strings.auth.signUp.existingEmail,
         };
       }
     }
@@ -69,9 +72,74 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
     */
     return {
       success: false,
-      error: "Ha ocurrido un error inesperado al crear la cuenta.",
+      error: strings.auth.signUp.error,
     }
 
+  }
+
+}
+
+export async function signIn(formData: FormData): Promise<ActionResponse> {
+
+  try {
+
+    const rawData ={
+      email: formData.get('email'),
+      password: formData.get('password'),
+    }
+
+    //console.log('rawData: ', rawData);
+
+    const validatedData = signInSchema.parse(rawData);
+
+    await nextAuthSignIn("credentials", {
+      email: validatedData.email.toLowerCase(),
+      password: validatedData.password,
+      redirect: false,
+    });
+
+    const session = await auth();
+
+    if (!session?.user) {
+      return {
+        success: false,
+        error: strings.auth.signIn.error,
+      };
+    }
+
+    return {
+      success: true,
+      data: {
+        userId: session.user.id,
+        email: validatedData.email,
+      }
+    }
+
+  } catch (error) {
+    console.error("SignIn Error: ", error);
+
+    if (error instanceof z.ZodError) {
+
+      console.error('Error en las validaciones del formulario: ',error.issues);
+
+      return {
+        success: false,
+        error: strings.auth.fields.checkFields,
+        fieldErrors: z.flattenError(error).fieldErrors,
+      }
+    }
+
+    if (error instanceof AuthError) {
+      return {
+        success: false,
+        error: strings.auth.signIn.error,
+      }
+    }
+
+    return {
+      success: false,
+      error: strings.auth.signIn.error,
+    }
 
   }
 

@@ -23,9 +23,9 @@ export async function  SignUpForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">{strings.login.signUp}</CardTitle>
+          <CardTitle className="text-xl">{strings.auth.signUp.title}</CardTitle>
           <CardDescription>
-            {strings.login.signUpInstructions}
+            {strings.auth.signUp.instructions}
           </CardDescription>
         </CardHeader>
         <CardContent>
