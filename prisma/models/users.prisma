@@ -9,26 +9,10 @@ model User {
   emailVerifiedAt DateTime? @map("email_verified_at") /// Verificación de correo electrónico
   image           String?   /// Foto de perfil
 
-  sessions      Session[] /// Sesiones del usuario
-
   createdAt DateTime @map("created_at") @default(now())
   updatedAt DateTime @map("updated_at") @updatedAt
 
   @@map("users")
-
-}
-
-model Session {
-  sessionToken String   @unique @map("session_token") /// Token de sesión
-  userId       String   @map("user_id")  /// ID del usuario
-  expires      DateTime /// Fecha de expiración
-
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade) /// Relación con el usuario
-
-  createdAt DateTime @map("created_at") @default(now())
-  updatedAt DateTime @map("updated_at") @updatedAt
-
-  @@map("sessions")
 
 }
 
