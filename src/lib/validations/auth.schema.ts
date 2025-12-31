@@ -25,11 +25,11 @@ const signInSchema =
   });
 
 export type ActionSuccessResponse = {
-    success: true;
-    data: {
-      userId?: string;
-      email: string;
-    };
+  success: true;
+  data?: {
+    userId: string;
+    email: string;
+  };
 }
 
 export type ActionErrorResponse = {
