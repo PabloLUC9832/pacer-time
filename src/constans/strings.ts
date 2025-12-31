@@ -4,6 +4,12 @@ export const strings = {
     home: 'Inicio',
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
+    menu: 'Menú',
+    account: {
+      title: 'Mi perfil',
+      conf: 'Configuración',
+      logOut: 'Cerrar sesión',
+    },
   },
   auth: {
     signUp: {

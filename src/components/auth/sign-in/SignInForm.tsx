@@ -15,7 +15,7 @@ export function SignInForm({
 }: React.ComponentProps<"div">) {
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card>
+      <Card className="bg-surface dark:bg-surface">
         <CardHeader>
           <CardTitle>{strings.auth.signIn.title}</CardTitle>
           <CardDescription>

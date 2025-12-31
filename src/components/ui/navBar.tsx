@@ -31,6 +31,7 @@ import {usePathname} from "next/dist/client/components/navigation";
 import Image from 'next/image';
 import {signOut} from "next-auth/react";
 import {ModeToggle} from "@/components/ModeToggle";
+import {strings} from "@/constans/strings";
 
 
 interface NavBarProps {
@@ -68,7 +69,7 @@ export function NavBar({ session }: NavBarProps) {
                   width={80}
                   height={80}
                   className='hidden md:block'
-                  alt="Pacer Time"
+                  alt={strings.appName}
               />
             </Link>
           </div>
@@ -80,7 +81,7 @@ export function NavBar({ session }: NavBarProps) {
 
                 <NavigationMenuItem>
                   <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                    <Link href="/">Inicio</Link>
+                    <Link href="/">{strings.pages.home}</Link>
                   </NavigationMenuLink>
                 </NavigationMenuItem>
 
@@ -109,13 +110,13 @@ export function NavBar({ session }: NavBarProps) {
                         </Avatar>
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-56 bg-blue-400" align="end">
-                      <DropdownMenuLabel className="bg-red-400">
+                    <DropdownMenuContent className="w-56" align="end">
+                      <DropdownMenuLabel>
                         <div className="flex flex-col gap-1">
                           <p className="text-sm font-medium leading-none">
                             {session.user.name}
                           </p>
-                          <p className="text-xs leading-none text-gray-500 dark:text-gray-400">
+                          <p className="text-xs leading-none text-on-surface-variant dark:text-on-surface-variant">
                             {session.user.email}
                           </p>
                         </div>
@@ -124,19 +125,19 @@ export function NavBar({ session }: NavBarProps) {
                       <DropdownMenuItem asChild>
                         <Link href="/profile" className="cursor-pointer">
                           <UserIcon className="mr-2 h-4 w-4" />
-                          <span>Mi perfil</span>
+                          <span>{strings.pages.account.title}</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuItem asChild>
                         <Link href="/settings" className="cursor-pointer">
                           <SettingsIcon className="mr-2 h-4 w-4" />
-                          <span>Configuración</span>
+                          <span>{strings.pages.account.conf}</span>
                         </Link>
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={handleSignOut} className="cursor-pointer">
                         <LogOutIcon className="mr-2 h-4 w-4" />
-                        <span>Cerrar sesión</span>
+                        <span>{strings.pages.account.logOut}</span>
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -145,15 +146,15 @@ export function NavBar({ session }: NavBarProps) {
             ) : (
               <div className="hidden items-center gap-2 md:flex">
                 <Button variant="ghost" asChild>
-                  <Link href="/sign-in">Iniciar sesión</Link>
+                  <Link href="/sign-in">{strings.pages.signIn}</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/sign-up">Registrarse</Link>
+                  <Link href="/sign-up">{strings.pages.signUp}</Link>
                 </Button>
               </div>
             )}
 
-            {/* Menú hamburguer (Mobile) */}
+            {/* Menú hamburger (Mobile) */}
             <Sheet>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon">
@@ -163,7 +164,7 @@ export function NavBar({ session }: NavBarProps) {
               </SheetTrigger>
               <SheetContent side="right" className="w-75 sm:w-100">
                 <SheetHeader>
-                  <SheetTitle>Menú</SheetTitle>
+                  <SheetTitle>{strings.pages.menu}</SheetTitle>
                 </SheetHeader>
                 <div className="mt-8 flex flex-col gap-4">
                   {session?.user && (
@@ -179,7 +180,7 @@ export function NavBar({ session }: NavBarProps) {
                       </Avatar>
                       <div className="flex flex-col">
                         <p className="text-sm font-medium">{session.user.name}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">
+                        <p className="text-xs text-on-surface-variant dark:text-on-surface-variant">
                           {session.user.email}
                         </p>
                       </div>
@@ -191,7 +192,7 @@ export function NavBar({ session }: NavBarProps) {
                         href="/"
                         className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
-                      Inicio
+                      {strings.pages.home}
                     </Link>
 
                     {session?.user && (
@@ -202,21 +203,21 @@ export function NavBar({ session }: NavBarProps) {
                               className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                           >
                             <UserIcon className="mr-2 inline-block h-4 w-4" />
-                            Mi perfil
+                            {strings.pages.account.title}
                           </Link>
                           <Link
                               href="/settings"
                               className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                           >
                             <SettingsIcon className="mr-2 inline-block h-4 w-4" />
-                            Configuración
+                            {strings.pages.account.conf}
                           </Link>
                           <button
                               onClick={handleSignOut}
                               className="rounded-md px-4 py-2 text-left text-sm font-medium text-red-600 transition-colors hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-950"
                           >
                             <LogOutIcon className="mr-2 inline-block h-4 w-4" />
-                            Cerrar sesión
+                            {strings.pages.account.logOut}
                           </button>
                         </>
                     )}
@@ -228,13 +229,13 @@ export function NavBar({ session }: NavBarProps) {
                               href="/sign-in"
                               className="rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 dark:hover:bg-gray-800"
                           >
-                            Iniciar sesión
+                            {strings.pages.signIn}
                           </Link>
                           <Link
                               href="/sign-up"
                               className="rounded-md bg-gray-900 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-gray-900/90 dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90"
                           >
-                            Registrarse
+                            {strings.pages.signUp}
                           </Link>
                         </>
                     )}

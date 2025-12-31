@@ -56,13 +56,13 @@
 
 :root {
   /* === SUPERFICIES  === */
-  --background: oklch(98.5% 0.002 247.839); /*bg-gray-50*/
-  --surface: oklch(1 0 89.876); /*bg-white*/
+  --background: oklch(98.5% 0.002 247.839); /* gray-50 */
+  --surface: oklch(1 0 89.876); /* white */
   --surface-variant: oklch(0.96 0 0);
   /* Texto sobre superficies */
   --on-background: oklch(0.2 0 0);
   --on-surface: oklch(0.2 0 0);
-  --on-surface-variant: oklch(0.5 0 0);
+  --on-surface-variant: oklch(55.1% 0.027 264.364); /* gray-500 */
 
   --radius: 0.625rem;
   --foreground: oklch(0.145 0 0);
@@ -99,13 +99,13 @@
 
 .dark {
   /* === SUPERFICIES  === */
-  --background: oklch(21% 0.034 264.665); /* bg-gray-900 */
-  --surface: oklch(13% 0.028 261.692); /* bg-gray-950 */
-  --surface-variant: oklch(0.25 0 0);
+  --background: oklch(21% 0.034 264.665); /* gray-900 */
+  --surface: oklch(13% 0.028 261.692); /* gray-950 */
+  --surface-variant: oklch(0.205 0 0);
   /* Texto sobre superficies */
   --on-background: oklch(0.95 0 0);
   --on-surface: oklch(0.95 0 0);
-  --on-surface-variant: oklch(0.7 0 0);
+  --on-surface-variant: oklch(70.7% 0.022 261.325); /* gray-400 */
 
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
