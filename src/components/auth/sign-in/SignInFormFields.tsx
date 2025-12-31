@@ -39,6 +39,7 @@ export default function SignInFormFields() {
       toast.success(strings.auth.signIn.success);
       form.reset();
       router.push("/");
+      router.refresh();
     } else {
       // Errores por campo
       if (result.fieldErrors) {

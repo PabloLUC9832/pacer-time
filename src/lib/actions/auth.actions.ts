@@ -100,9 +100,6 @@ export async function signIn(formData: FormData): Promise<ActionResponse> {
       redirect: false,
     });
 
-    //revalidatePath("/", "layout");
-    //redirect("/");
-
     return {
       success: true,
     }

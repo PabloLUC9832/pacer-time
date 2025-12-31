@@ -39,7 +39,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           return {
             userId: user.id,
             email: user.email,
-            name: user.name,
+            name: `${user.name} ${user.lastName}`,
           };
 
         } catch (error) {
