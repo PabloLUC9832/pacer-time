@@ -3,7 +3,6 @@ import NextAuth from "next-auth";
 import Credentials from "@auth/core/providers/credentials";
 import prisma from "../../lib/prisma";
 import {signInSchema} from "@/lib/validations/auth.schema";
-import {strings} from "@/constans/strings";
 import bcrypt from "bcryptjs";
 
 const adapter = PrismaAdapter(prisma);
@@ -37,9 +36,10 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
           if (!isPasswordMatch) return null;
 
           return {
-            userId: user.id,
+            id: user.id,
             email: user.email,
             name: `${user.name} ${user.lastName}`,
+            role: user.role,
           };
 
         } catch (error) {
@@ -55,6 +55,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         token.id = user.id;
         token.email = user.email;
         token.name = user.name;
+        token.role = user.role
       }
       return token;
     },
@@ -63,6 +64,7 @@ export const { auth, signIn, signOut, handlers } = NextAuth({
         session.user.id = token.id as string;
         session.user.email = token.email as string;
         session.user.name = token.name as string;
+        session.user.role = token.role as string;
       }
       return session;
     },
