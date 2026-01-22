@@ -1,0 +1,38 @@
+model Competitor {
+
+  id                 String   @id @default(uuid())
+  // Relación con el evento
+  event                Event     @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  eventId              String    @map("event_id")
+
+  registrationMethod   Method    @map("registration_method") /// Método de registro
+  bib                  String    /// Número de dorsal
+  name                 String    /// Nombre
+  fatherLastName       String    @map("father_last_name") /// Apellido parterno
+  motherLastName       String?   @map("mother_last_name") /// Apellido materno
+  email                String    /// Correo electrónico
+  phoneNumber          String    @map("phone_number") /// Número de teléfono
+  birthDate            DateTime  @map("birth_date") /// Fecha de nacimiento
+  gender               String    /// Género/Rama
+  club                 String?   /// Club
+  city                 String    @map("city") /// Ciudad
+  state                String    @map("state") /// Estado
+  country              String?   @map("country") /// País
+  allergies            String?   /// Alergias
+  emergencyPhoneNumber String?   @map("emergency_phone_number") /// Número de teléfono de emergencia
+  customFields         Json?     @map("custom_fields") /// Respuesta a customsQuestions
+  sizeTshirt           String?   @map("size_tshirt") /// Talla de camiseta
+
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime @map("updated_at") @updatedAt
+
+  @@index([eventId])
+
+  @@map("competitors")
+}
+
+
+enum Method {
+  ONLINE
+  ORGANIZER
+}

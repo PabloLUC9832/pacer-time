@@ -1,0 +1,16 @@
+model Category {
+
+  id          String    @id @default(uuid())
+  eventModalityGenderCategory EventModalityGenderCategory[]  /// Relación con eventos, géneros y categorías 1 - n
+
+  name        String    /// Nombre del evento
+  minAge      Int?      @map("min_age") /// Edad mínima para la categoría
+  maxAge      Int?      @map("max_age") /// Edad máxima para la categoría
+  hasAgeLimit Boolean   @map("has_age_limit") /// Indica si la categoría tiene límite de edad
+
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime @map("updated_at") @updatedAt
+
+  @@map("categories")
+
+}

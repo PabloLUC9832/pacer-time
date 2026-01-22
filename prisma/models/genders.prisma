@@ -1,0 +1,13 @@
+model Gender {
+
+  id   String    @id @default(uuid())
+  eventModalityGenderCategory EventModalityGenderCategory[]  /// Relación con eventos, géneros y categorías 1 - n
+
+  name String    /// Nombre del género/rama
+
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime @map("updated_at") @updatedAt
+
+  @@map("genders")
+
+}

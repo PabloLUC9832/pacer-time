@@ -30,20 +30,6 @@ export default function DataTable({runners}: {runners: Runner[]}) {
           //Json Data
           const jsonRunners = XLSX.utils.sheet_to_json(worksheet);
 
-          /*for (const runner of jsonRunners) {
-            if ("Bib" in runner) {
-              runner.bib = runner["Bib"];
-              delete runner["Bib"];
-            }
-            if ("Competidor" in runner) {
-              runner.name = runner["Competidor"];
-              delete runner["Competidor"];
-            }
-            if ("Posición" in runner) {
-              runner.position = runner["Posición"];
-              delete runner["Posición"];
-            }
-          }*/
           const normalizedRunners = jsonRunners.map(
               ({
                  Bib,

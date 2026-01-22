@@ -1,0 +1,33 @@
+model Event {
+
+  id                  String    @id @default(uuid())
+  // Relación con el usuario organizador del evento
+  user                User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId              String    @map("user_id")
+  // Relación con los competidores del evento todo: preguntar cardinalidad
+  competitors        Competitor[]  /// Competidores del evento 1 - n
+  eventModalityGenderCategory EventModalityGenderCategory[]  /// Relación con eventos, géneros y categorías 1 - n
+
+
+  name                String    /// Nombre del evento
+  startsAt            DateTime  @map("starts_date") /// Fecha de inicio del evento
+  endsAt              DateTime  @map("ends_date") /// Fecha de finalización del evento
+  city                String    @map("city") /// Ciudad
+  state               String    @map("state") /// Estado
+  country             String?   @map("country") /// País
+  edition             String?   /// Edición del evento
+  logoUrl             String?   @map("logo_url") /// URL del logo del evento
+  bannerUrl           String?   @map("banner_url") /// URL del banner/flyer del evento
+  requiresTshirtSize  Boolean   @map("requires_tshirt_size") /// Indica si se requiere talla de camiseta de los competidores
+  customsQuestions    Json?  @map("customs_questions") /// Preguntas personalizadas para los competidores
+  waiverUrl           String?   @map("waiver_url") /// URL del documento de exoneración, responsiva
+  webSiteUrl          String?   @map("website_url") /// URL del sitio web del evento
+
+  createdAt DateTime @map("created_at") @default(now())
+  updatedAt DateTime @map("updated_at") @updatedAt
+
+  @@index([userId])
+
+  @@map("events")
+
+}
