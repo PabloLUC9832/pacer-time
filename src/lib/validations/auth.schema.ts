@@ -4,7 +4,12 @@ import {strings} from "@/constans/strings";
 const signUpSchema  =
   z.object({
     name: z.string().min(1, `${strings.auth.signUp.name}`),
-    lastName: z.string().min(1, `${strings.auth.signUp.lastName}`),
+    fatherLastName: z.string().min(1, `${strings.auth.signUp.lastName}`),
+    motherLastName: z.string().min(2, `${strings.auth.signUp.lastName}`).optional(),
+    eventName: z.string().optional(),
+    city: z.string().optional(),
+    state: z.string().optional(),
+    country: z.string().optional(),
     phoneNumber: z.string().regex(/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/, `${strings.auth.signUp.phoneNumber}`),
     email: z.email(`${strings.auth.signUp.email}`),
     password: z.string().min(8, `${strings.auth.signUp.password}`),

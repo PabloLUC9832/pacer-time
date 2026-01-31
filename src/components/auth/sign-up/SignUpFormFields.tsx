@@ -30,7 +30,12 @@ export default function SignUpFormFields() {
     resolver: zodResolver(signUpSchema),
     defaultValues: {
       name: '',
-      lastName: '',
+      fatherLastName: '',
+      motherLastName: '',
+      eventName: '',
+      city: '',
+      state: '',
+      country: '',
       phoneNumber: '',
       email: '',
       password: '',
@@ -43,12 +48,17 @@ export default function SignUpFormFields() {
   async function onSubmit(data: SignUpFormData) {
 
     setGeneralError(null);
-
+    console.log('Datos del formulario: ', data);
     const formData = new FormData();
     formData.append("name", data.name);
-    formData.append("lastName", data.lastName);
+    formData.append("fatherLastName", data.fatherLastName);
+    formData.append("motherLastName", data?.motherLastName ?? '');
     formData.append("phoneNumber", data.phoneNumber);
     formData.append("email", data.email);
+    formData.append("eventName", data?.eventName ?? '');
+    formData.append("city", data?.city ?? '');
+    formData.append("state", data?.state ?? '');
+    formData.append("country", data?.country ?? '');
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
 
@@ -108,19 +118,37 @@ export default function SignUpFormFields() {
           )}
         </Field>
         <Field>
-          <FieldLabel htmlFor="last-name">{strings.auth.fields.lastName}</FieldLabel>
-          <Input
-            {...form.register("lastName")}
-            id="last-name"
-            type="text"
-            placeholder={strings.auth.fields.lastName}
-            aria-invalid={form.formState.errors.lastName ? "true" : "false"}
-          />
-          { form.formState.errors.lastName && (
+          <FieldLabel htmlFor="father-last-name">{strings.auth.fields.surnames}</FieldLabel>
+          <div className="block space-y-4 md:flex md:space-y-0 md:space-x-4">
+            <div>
+              <Input
+                  {...form.register("fatherLastName")}
+                  id="father-last-name"
+                  type="text"
+                  placeholder={strings.auth.fields.fatherLastName}
+                  aria-invalid={form.formState.errors.fatherLastName ? "true" : "false"}
+              />
+            { form.formState.errors.fatherLastName && (
               <p className="text-sm text-red-600">
-                {form.formState.errors.lastName.message}
+                {form.formState.errors.fatherLastName.message}
               </p>
-          )}
+            )}
+            </div>
+            <div>
+              <Input
+                {...form.register("motherLastName")}
+                id="mother-last-name"
+                type="text"
+                placeholder={strings.auth.fields.motherLastName}
+                aria-invalid={form.formState.errors.motherLastName ? "true" : "false"}
+              />
+              { form.formState.errors.motherLastName && (
+                  <p className="text-sm text-red-600">
+                    {form.formState.errors.motherLastName.message}
+                  </p>
+              )}
+            </div>
+          </div>
         </Field>
         <Field>
           <FieldLabel htmlFor="phone-number">{strings.auth.fields.phoneNumber}</FieldLabel>
@@ -153,6 +181,66 @@ export default function SignUpFormFields() {
           { form.formState.errors.email && (
               <p className="text-sm text-red-600">
                 {form.formState.errors.email.message}
+              </p>
+          )}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="event-name">{strings.auth.fields.eventName}</FieldLabel>
+          <Input
+            {...form.register("eventName")}
+            id="event-name"
+            type="text"
+            placeholder={strings.auth.fields.eventName}
+            aria-invalid={form.formState.errors.eventName ? "true" : "false"}
+          />
+          { form.formState.errors.eventName && (
+              <p className="text-sm text-red-600">
+                {form.formState.errors.eventName.message}
+              </p>
+          )}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="city">{strings.auth.fields.city}</FieldLabel>
+          <Input
+            {...form.register("city")}
+            id="city"
+            type="text"
+            placeholder={strings.auth.fields.city}
+            aria-invalid={form.formState.errors.city ? "true" : "false"}
+          />
+          { form.formState.errors.city && (
+            <p className="text-sm text-red-600">
+              {form.formState.errors.city.message}
+            </p>
+          )}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="city">{strings.auth.fields.state}</FieldLabel>
+          <Input
+              {...form.register("state")}
+              id="state"
+              type="text"
+              placeholder={strings.auth.fields.state}
+              aria-invalid={form.formState.errors.state ? "true" : "false"}
+          />
+          { form.formState.errors.state && (
+              <p className="text-sm text-red-600">
+                {form.formState.errors.state.message}
+              </p>
+          )}
+        </Field>
+        <Field>
+          <FieldLabel htmlFor="city">{strings.auth.fields.country}</FieldLabel>
+          <Input
+              {...form.register("country")}
+              id="country"
+              type="text"
+              placeholder={strings.auth.fields.country}
+              aria-invalid={form.formState.errors.country ? "true" : "false"}
+          />
+          { form.formState.errors.country && (
+              <p className="text-sm text-red-600">
+                {form.formState.errors.country.message}
               </p>
           )}
         </Field>

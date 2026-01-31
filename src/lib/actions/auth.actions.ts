@@ -17,9 +17,13 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
 
     const rawData = {
       name : formData.get('name'),
-      lastName : formData.get('lastName'),
+      fatherLastName : formData.get('fatherLastName'),
+      motherLastName : formData.get('motherLastName'),
       phoneNumber : formData.get('phoneNumber'),
       email : formData.get('email'),
+      city : formData.get('city'),
+      state : formData.get('state'),
+      country : formData.get('country'),
       password : formData.get('password'),
       confirmPassword : formData.get('confirmPassword'),
     };
@@ -31,9 +35,13 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
     const newAccount = await prisma.user.create({
       data: {
         name: validatedData.name,
-        lastName: validatedData.lastName,
+        fatherLastName: validatedData.fatherLastName,
+        motherLastName: validatedData.motherLastName,
         phoneNumber: validatedData.phoneNumber,
         email: validatedData.email.toLowerCase(),
+        city: validatedData.city ?? '',
+        state: validatedData.state ?? '',
+        country: validatedData.country,
         password: hashedPassword,
       },
     });
