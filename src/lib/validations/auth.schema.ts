@@ -5,7 +5,7 @@ const signUpSchema  =
   z.object({
     name: z.string().min(1, `${strings.auth.signUp.name}`),
     fatherLastName: z.string().min(1, `${strings.auth.signUp.lastName}`),
-    motherLastName: z.string().min(2, `${strings.auth.signUp.lastName}`).optional(),
+    motherLastName: z.string().optional(),
     eventName: z.string().optional(),
     city: z.string().optional(),
     state: z.string().optional(),

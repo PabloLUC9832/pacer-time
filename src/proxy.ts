@@ -35,17 +35,25 @@ export default auth(async (req) => {
   }
 
   // Verificar rol
-  console.log('userRole::', userRole)
-  if (pathName.startsWith('/admin') && userRole !== 'ADMIN') {
-    return NextResponse.redirect(new URL('/', nextUrl))
-  }
+  console.log('userRole::', userRole);
+  const pathSegments = pathName.split('/').filter(Boolean);
 
-  if (pathName.startsWith('/organizer') && userRole !== 'ORGANIZER') {
-    return NextResponse.redirect(new URL('/', nextUrl))
-  }
+  if (pathSegments[0] === 'dashboard' && pathSegments[1]) {
+    const urlRole = pathSegments[1];
 
-  if (pathName.startsWith('/user') && userRole !== 'COMPETITOR') {
-    return NextResponse.redirect(new URL('/', nextUrl))
+    const roleMap: Record<string, string> = {
+      admin: 'ADMIN',
+      organizer: 'ORGANIZER',
+      competitor: 'COMPETITOR',
+    }
+
+    const requiredRole = roleMap[urlRole];
+
+    if (requiredRole && userRole !== requiredRole) {
+      console.log(`Acceso denegado a ${userRole} intentó acceder a ${urlRole}`);
+      return NextResponse.redirect(new URL('/', nextUrl));
+    }
+
   }
 
   // OK
@@ -57,8 +65,8 @@ export const config = {
   matcher: [
     '/sign-in',
     '/sign-up',
-    '/admin/:path*',
-    '/organizer/:path*',
+    '/dashboard/admin/:path*',
+    '/dashboard/organizer/:path*',
     '/user/:path*',
   ]
 };
