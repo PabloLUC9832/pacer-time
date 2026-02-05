@@ -9,7 +9,7 @@ model User {
   phoneNumber     String?   @map("phone_number") /// Número de teléfono
   email           String    @unique /// Correo electrónico
   password        String    /// Contraseña
-  role            Role      @default(USER)
+  role            Role      @default(COMPETITOR)
   eventName       String?   @unique @map("event_name") /// Evento / Organizador del evento
   city            String    @map("city") /// Ciudad
   state           String    @map("state") /// Estado
@@ -28,5 +28,5 @@ model User {
 enum Role {
   ADMIN
   ORGANIZER
-  USER
+  COMPETITOR
 }

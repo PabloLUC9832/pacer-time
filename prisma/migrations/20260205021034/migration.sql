@@ -2,7 +2,7 @@
 CREATE TYPE "Method" AS ENUM ('ONLINE', 'ORGANIZER');
 
 -- CreateEnum
-CREATE TYPE "Role" AS ENUM ('ADMIN', 'ORGANIZER', 'USER');
+CREATE TYPE "Role" AS ENUM ('ADMIN', 'ORGANIZER', 'COMPETITOR');
 
 -- CreateTable
 CREATE TABLE "categories" (
@@ -109,7 +109,7 @@ CREATE TABLE "users" (
     "phone_number" TEXT,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
-    "role" "Role" NOT NULL DEFAULT 'USER',
+    "role" "Role" NOT NULL DEFAULT 'COMPETITOR',
     "event_name" TEXT,
     "city" TEXT NOT NULL,
     "state" TEXT NOT NULL,

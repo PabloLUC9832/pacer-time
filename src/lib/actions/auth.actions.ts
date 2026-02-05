@@ -6,10 +6,8 @@ import bcrypt from "bcryptjs";
 import { z } from "zod";
 import { Prisma } from "../../../generated/prisma/client";
 import {strings} from "@/constans/strings";
-import {auth, signIn as nextAuthSignIn} from "@/lib/auth";
+import {signIn as nextAuthSignIn} from "@/lib/auth";
 import {AuthError} from "next-auth";
-import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
-import {redirect} from "next/navigation";
 
 export async function signUp(formData: FormData): Promise<ActionResponse> {
 
