@@ -10,7 +10,7 @@ export default async function Home() {
 
   const session = await auth();
 
-  console.log('session::', session)
+  //console.log('session::', session)
 
   return (
 

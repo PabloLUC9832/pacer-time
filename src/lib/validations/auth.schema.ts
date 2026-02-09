@@ -14,6 +14,7 @@ const signUpSchema  =
     email: z.email(`${strings.auth.signUp.email}`),
     password: z.string().min(8, `${strings.auth.signUp.password}`),
     confirmPassword: z.string().min(8, `${strings.auth.signUp.password}`),
+    role: z.enum(["ADMIN", "ORGANIZER", "COMPETITOR"]).optional(),
   })
   .refine(
     (data) =>

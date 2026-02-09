@@ -4,6 +4,7 @@ export const strings = {
     home: 'Inicio',
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
+    createUsers: 'Crear usuarios',
     uploadRunners: 'Cargar competidores',
     menu: 'Menú',
     account: {

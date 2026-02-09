@@ -5,7 +5,7 @@ import {Input} from "@/components/ui/input";
 import {strings} from "@/constans/strings";
 import {Button} from "@/components/ui/button";
 import Link from "next/link";
-import {useForm} from "react-hook-form";
+import {Controller, useForm} from "react-hook-form";
 import {SignUpFormData, signUpSchema} from "@/lib/validations/auth.schema";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {signUp} from "@/lib/actions/auth.actions";
@@ -13,8 +13,9 @@ import {useRouter} from "next/navigation";
 import {useState} from "react";
 import {toast} from "sonner";
 import {InputPassword} from "@/components/ui/inputPassword";
+import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
-export default function SignUpFormFields() {
+export default function SignUpFormFields({isCreating = false} : {isCreating?: boolean}) {
 
   const router = useRouter();
   const [generalError, setGeneralError] = useState<string | null>(null);
@@ -40,13 +41,14 @@ export default function SignUpFormFields() {
       email: '',
       password: '',
       confirmPassword: '',
+      role: 'COMPETITOR',
     }
   });
 
   const { isSubmitting } = form.formState;
 
   async function onSubmit(data: SignUpFormData) {
-
+    console.log('Enviando datos al servidor:')
     setGeneralError(null);
     console.log('Datos del formulario: ', data);
     const formData = new FormData();
@@ -61,13 +63,16 @@ export default function SignUpFormFields() {
     formData.append("country", data?.country ?? '');
     formData.append("password", data.password);
     formData.append("confirmPassword", data.confirmPassword);
+    formData.append("role", data.role ?? '');
+
+    console.log('::role::', data.role);
 
     const result = await signUp(formData);
 
     if (result.success) {
       toast.success(`${strings.auth.signUp.success}`);
       form.reset();
-      router.push("/sign-in");
+      //router.push("/sign-in");
     } else {
       // Errores por campo
       if (result.fieldErrors) {
@@ -184,6 +189,39 @@ export default function SignUpFormFields() {
               </p>
           )}
         </Field>
+
+        {isCreating && (
+          <Field>
+            <FieldLabel>Rol</FieldLabel>
+            <Controller
+              name="role"
+              control={form.control}
+              render={({ field }) => (
+                <Select
+                    value={field.value}
+                    onValueChange={field.onChange}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Rol" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectItem value="ADMIN">Administrador</SelectItem>
+                      <SelectItem value="ORGANIZER">Organizador</SelectItem>
+                      <SelectItem value="COMPETITOR">Competidor</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {/*{form.formState.errors.role && (
+              <p className="text-sm text-red-600">
+                {form.formState.errors.role.message}
+              </p>
+            )}*/}
+          </Field>
+        )}
+
         <Field>
           <FieldLabel htmlFor="event-name">{strings.auth.fields.eventName}</FieldLabel>
           <Input
@@ -255,9 +293,9 @@ export default function SignUpFormFields() {
                 aria-invalid={form.formState.errors.password ? "true" : "false"}
               />
               { form.formState.errors.password && (
-                  <p className="text-sm text-red-600">
-                    {form.formState.errors.password.message}
-                  </p>
+                <p className="text-sm text-red-600">
+                  {form.formState.errors.password.message}
+                </p>
               )}
             </Field>
             <Field>
@@ -288,9 +326,12 @@ export default function SignUpFormFields() {
           >
             {isSubmitting ? strings.auth.signUp.loading : strings.auth.signUp.title}
           </Button>
-          <FieldDescription className="text-center">
-            {strings.auth.signUp.haveAnAccount} <Link href="/sign-in">{strings.auth.signIn.title}</Link>
-          </FieldDescription>
+          {!isCreating && (
+            <FieldDescription className="text-center">
+              {strings.auth.signUp.haveAnAccount} <Link href="/sign-in">{strings.auth.signIn.title}</Link>
+            </FieldDescription>
+          )}
+
         </Field>
       </FieldGroup>
     </form>

@@ -21,11 +21,11 @@ const Page = async () => {
       <div className="flex w-full max-w-sm flex-col gap-6">
         <Link href="/" className="flex items-center gap-2 self-center font-medium">
           <Image
-              src="/logo.svg"
-              width={80}
-              height={80}
-              className='hidden md:block'
-              alt="Pacer Time"
+            src="/logo.svg"
+            width={80}
+            height={80}
+            className='hidden md:block'
+            alt="Pacer Time"
           />
         </Link>
         <SignInForm />

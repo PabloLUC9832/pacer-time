@@ -13,6 +13,8 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
 
   try {
 
+    console.log('role:::', formData.get('role') ?? 'COMPETITOR')
+
     const rawData = {
       name : formData.get('name'),
       fatherLastName : formData.get('fatherLastName'),
@@ -24,6 +26,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
       country : formData.get('country'),
       password : formData.get('password'),
       confirmPassword : formData.get('confirmPassword'),
+      role : formData.get('role'),
     };
 
     const validatedData = signUpSchema.parse(rawData);
@@ -41,6 +44,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
         state: validatedData.state ?? '',
         country: validatedData.country,
         password: hashedPassword,
+        role: validatedData.role,
       },
     });
 
