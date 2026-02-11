@@ -23,7 +23,9 @@ export default auth(async (req) => {
 
   if (isAuthPath) {
     // Si ya está logueado, redirigir a home
+    console.log('isAuthPath', pathName)
     if (isLoggedIn) {
+      console.log('isLoggedIn')
       return NextResponse.redirect(new URL('/', nextUrl));
     }
     return NextResponse.next();
@@ -63,6 +65,7 @@ export default auth(async (req) => {
 
 export const config = {
   matcher: [
+    '/',
     '/sign-in',
     '/sign-up',
     '/dashboard/admin/:path*',

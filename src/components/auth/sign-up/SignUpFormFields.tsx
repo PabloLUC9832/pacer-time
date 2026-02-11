@@ -72,7 +72,7 @@ export default function SignUpFormFields({isCreating = false} : {isCreating?: bo
     if (result.success) {
       toast.success(`${strings.auth.signUp.success}`);
       form.reset();
-      //router.push("/sign-in");
+      router.push("/sign-in");
     } else {
       // Errores por campo
       if (result.fieldErrors) {

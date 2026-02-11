@@ -54,5 +54,20 @@ export const strings = {
       noAccount: '¿No tienes cuenta?',
       checkFields: 'Por favor verifica los campos del formulario.',
     },
+  },
+  events: {
+    name: 'Nombre del evento',
+    startsAt: 'Fecha de inicio',
+    endsAt: 'Fecha de fin',
+    edition: 'Edición',
+    logo: 'Seleccione el archivo para el logo del evento',
+    banner: 'Seleccione el archivo para el banner del evento',
+    requiresShirtSize: '¿Requiere talla de playeras?',
+    customsQuestions: 'Preguntas personalizadas',
+    waiver: 'Seleccione el documento de exoneración',
+    webSite: 'Url de su sitio web',
+    nameRequired: 'El nombre del evento es obligatorio',
+    startsAtRequired: 'La fecha de inicio es obligatoria',
+    endsAtRequired: 'La fecha de fin es obligatoria',
   }
 }
