@@ -16,8 +16,8 @@ export async function  SignUpForm({
                              ...props
                            }: React.ComponentProps<"div">) {
 
-  const session = await auth();
-  if (!session) redirect("/");
+  //const session = await auth();
+  //if (!session) redirect("/");
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
