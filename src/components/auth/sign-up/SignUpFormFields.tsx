@@ -75,6 +75,8 @@ export default function SignUpFormFields({isCreating = false} : {isCreating?: bo
       form.reset();
       if (!isCreating) {
         router.push("/sign-in");
+      } else{
+        router.push("/dashboard/admin/users");
       }
     } else {
       // Errores por campo
