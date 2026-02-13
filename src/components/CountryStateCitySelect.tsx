@@ -4,7 +4,6 @@ import {Field, FieldGroup, FieldLabel} from "@/components/ui/field";
 import {Control, Controller, FieldErrors, UseFormRegister, useWatch} from "react-hook-form";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {strings} from "@/constans/strings";
-import {Input} from "@/components/ui/input";
 import {SignUpFormData} from "@/lib/validations/auth.schema";
 import {useEffect, useState} from "react";
 
@@ -71,8 +70,14 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
   }, []);
 
   useEffect(() => {
+
     if (!countrySelected) return;
+
     const fetchStatesByCountry = async () => {
+
+      setStates([]);
+      setCities([]);
+
       const statesResponse = await fetch(`https://api.countrystatecity.in/v1/countries/${countrySelected}/states`, {
         headers: {
           'X-CSCAPI-KEY':  (process.env.NEXT_PUBLIC_COUNTRY_STATE_CITY_API_KEY || '' ) ,
@@ -96,19 +101,10 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
     fetchCitiesByState();
   }, [countrySelected, stateSelected]);
 
-  useEffect(() => {
-    if (!countrySelected) return;
-
-    setStates([]);
-    setCities([]);
-
-    // fetch estados
-  }, [countrySelected]);
-
   return (
     <FieldGroup className="md:flex-3 md:flex-row">
 
-      <Field>
+      <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.country}</FieldLabel>
         <Controller
           name="country"
@@ -140,7 +136,7 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
         )}
       </Field>
 
-      <Field>
+      <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.state}</FieldLabel>
         <Controller
           name="state"
@@ -165,14 +161,14 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
             </Select>
           )}
         />
-        {errors.city && (
+        {errors.state && (
           <p className="text-sm text-red-600">
-            {errors.city.message}
+            {errors.state.message}
           </p>
         )}
       </Field>
 
-      <Field>
+      <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.city}</FieldLabel>
         <Controller
           name="city"
@@ -197,9 +193,9 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
             </Select>
           )}
         />
-        {errors.state && (
+        {errors.city && (
           <p className="text-sm text-red-600">
-            {errors.state.message}
+            {errors.city.message}
           </p>
         )}
       </Field>
