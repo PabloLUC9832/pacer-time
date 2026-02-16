@@ -1,4 +1,5 @@
 import NextAuth, { DefaultSession, DefaultUser } from "next-auth";
+import '@tanstack/react-table';
 
 declare module "next-auth" {
   interface Session {
@@ -17,5 +18,11 @@ declare module "next-auth/jwt" {
   interface JWT {
     id: string;
     role?: string;
+  }
+}
+
+declare module '@tanstack/react-table' {
+  interface ColumnMeta<TData extends RowData, TValue> {
+    label?: string
   }
 }

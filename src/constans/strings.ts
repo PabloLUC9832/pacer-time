@@ -69,5 +69,11 @@ export const strings = {
     nameRequired: 'El nombre del evento es obligatorio',
     startsAtRequired: 'La fecha de inicio es obligatoria',
     endsAtRequired: 'La fecha de fin es obligatoria',
+  },
+  actions: {
+    edit: 'Editar',
+    delete: 'Eliminar',
+    copyName: 'Copiar nombre',
+    search: 'Buscar',
   }
 }
