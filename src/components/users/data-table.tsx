@@ -33,6 +33,11 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
   const [rowSelection, setRowSelection] = useState({});
   const [globalFilter, setGlobalFilter] = useState([]);
 
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 5,
+  });
+
   const table = useReactTable({
     data,
     columns,
@@ -46,12 +51,14 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
     onColumnVisibilityChange: setColumnVisibility,
     onRowSelectionChange: setRowSelection,
     onGlobalFilterChange: setGlobalFilter,
+    onPaginationChange: setPagination,
     state: {
       sorting,
       columnFilters,
       columnVisibility,
       rowSelection,
       globalFilter,
+      pagination,
     },
   });
 
@@ -77,7 +84,6 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
                 (column) => column.getCanHide()
               )
               .map((column) => {
-                const header = column.columnDef.header
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
@@ -95,8 +101,7 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
         </DropdownMenu>
       </div>
       <div className="text-muted-foreground flex-1 text-sm mb-4">
-        {table.getFilteredSelectedRowModel().rows.length} de {" "}
-        {table.getFilteredRowModel().rows.length} seleccionados.
+        {table.getFilteredSelectedRowModel().rows.length} de {pagination.pageSize} seleccionados.
       </div>
       <div className="overflow-hidden rounded-md border">
         <Table>
@@ -152,7 +157,7 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
-          Previous
+          Anterior
         </Button>
         <Button
           variant="outline"
@@ -160,7 +165,7 @@ export function DataTable<TData, TValue>({columns, data}: DataTableProps<TData, 
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >
-          Next
+          Sigueinte
         </Button>
       </div>
     </div>
