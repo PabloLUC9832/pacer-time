@@ -35,7 +35,7 @@ export default function SignUpFormFields({isCreating = false} : {isCreating?: bo
       fatherLastName: '',
       motherLastName: '',
       eventName: '',
-      city: '76113',
+      city: 'Xalapa de Enríquez',
       state: 'VER',
       country: 'MX',
       phoneNumber: '',
@@ -215,8 +215,6 @@ export default function SignUpFormFields({isCreating = false} : {isCreating?: bo
           register={form.register}
           errors={form.formState.errors}
         />
-
-
 
         {isCreating && (
           <Field>

@@ -27,6 +27,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
       password : formData.get('password'),
       confirmPassword : formData.get('confirmPassword'),
       role : formData.get('role'),
+      eventName : formData.get('eventName'),
     };
 
     const validatedData = signUpSchema.parse(rawData);
@@ -45,6 +46,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
         country: validatedData.country,
         password: hashedPassword,
         role: validatedData.role,
+        eventName: validatedData.eventName ?? '',
       },
     });
 

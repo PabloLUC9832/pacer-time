@@ -184,7 +184,7 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
               <SelectContent>
                 <SelectGroup>
                   {cities.map((city) => (
-                    <SelectItem key={city.id} value={city.id}>
+                    <SelectItem key={city.id} value={city.name}>
                       {city.name}
                     </SelectItem>
                   ))}
