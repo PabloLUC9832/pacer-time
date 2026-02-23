@@ -1,13 +1,12 @@
 model Modality {
-
-  id                  String    @id @default(uuid())
+  id                          String                        @id @default(uuid())
   eventModalityGenderCategory EventModalityGenderCategory[] /// Relación con eventos, géneros y categorías 1 - n
 
-  name                String    /// Nombre de la modalidad
+  name String /// Nombre de la modalidad
 
-  createdAt DateTime @map("created_at") @default(now())
-  updatedAt DateTime @map("updated_at") @updatedAt
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   @@map("modalities")
-
 }

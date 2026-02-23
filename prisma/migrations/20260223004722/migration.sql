@@ -13,6 +13,7 @@ CREATE TABLE "categories" (
     "has_age_limit" BOOLEAN NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "categories_pkey" PRIMARY KEY ("id")
 );
@@ -40,6 +41,7 @@ CREATE TABLE "competitors" (
     "size_tshirt" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "competitors_pkey" PRIMARY KEY ("id")
 );
@@ -63,6 +65,7 @@ CREATE TABLE "events" (
     "website_url" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "events_pkey" PRIMARY KEY ("id")
 );
@@ -76,6 +79,7 @@ CREATE TABLE "events_modalities_genders_categories" (
     "category_id" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "events_modalities_genders_categories_pkey" PRIMARY KEY ("id")
 );
@@ -86,6 +90,7 @@ CREATE TABLE "genders" (
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "genders_pkey" PRIMARY KEY ("id")
 );
@@ -96,6 +101,7 @@ CREATE TABLE "modalities" (
     "name" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "modalities_pkey" PRIMARY KEY ("id")
 );
@@ -116,6 +122,7 @@ CREATE TABLE "users" (
     "country" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
+    "deleted_at" TIMESTAMP(3),
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );

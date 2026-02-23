@@ -1,28 +1,29 @@
 model User {
+  id     String  @id @default(uuid())
+  events Event[] /// Eventos organizados por el usuario 1 - n
 
-  id              String    @id @default(uuid())
-  events          Event[]   /// Eventos organizados por el usuario 1 - n
+  name           String /// Nombre
+  fatherLastName String  @map("father_last_name") /// Apellido parterno
+  motherLastName String? @map("mother_last_name") /// Apellido materno
+  phoneNumber    String? @map("phone_number") /// Número de teléfono
+  email          String  @unique /// Correo electrónico
+  password       String /// Contraseña
+  role           Role    @default(COMPETITOR)
+  eventName      String? @unique @map("event_name") /// Evento / Organizador del evento
+  city           String  @map("city") /// Ciudad
+  state          String  @map("state") /// Estado
+  country        String? @map("country") /// País
 
-  name            String    /// Nombre
-  fatherLastName  String    @map("father_last_name") /// Apellido parterno
-  motherLastName  String?   @map("mother_last_name") /// Apellido materno
-  phoneNumber     String?   @map("phone_number") /// Número de teléfono
-  email           String    @unique /// Correo electrónico
-  password        String    /// Contraseña
-  role            Role      @default(COMPETITOR)
-  eventName       String?   @unique @map("event_name") /// Evento / Organizador del evento
-  city            String    @map("city") /// Ciudad
-  state           String    @map("state") /// Estado
-  country         String?   @map("country") /// País
+  /**
+   * emailVerifiedAt DateTime? @map("email_verified_at") /// Verificación de correo electrónico
+   * image           String?   /// Foto de perfil
+   */
 
-  /*emailVerifiedAt DateTime? @map("email_verified_at") /// Verificación de correo electrónico
-  image           String?   /// Foto de perfil*/
-
-  createdAt DateTime @map("created_at") @default(now())
-  updatedAt DateTime @map("updated_at") @updatedAt
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
 
   @@map("users")
-
 }
 
 enum Role {
