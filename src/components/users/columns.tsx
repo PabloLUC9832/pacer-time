@@ -2,17 +2,11 @@
 
 import {ColumnDef} from "@tanstack/react-table";
 import {User} from "../../../generated/prisma/client";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel, DropdownMenuSeparator,
-  DropdownMenuTrigger
-} from "@/components/ui/dropdown-menu";
 import {Button} from "@/components/ui/button";
-import {ArrowUpDown, MoreHorizontal} from "lucide-react";
+import {ArrowUpDown} from "lucide-react";
 import {Checkbox} from "@/components/ui/checkbox";
 import {strings} from "@/constans/strings";
+import {UserRowActions} from "@/components/users/user-row-actions";
 
 export const columns:  ColumnDef<User>[] = [
   {
@@ -89,25 +83,7 @@ export const columns:  ColumnDef<User>[] = [
       const user = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {/*<DropdownMenuLabel>Actions</DropdownMenuLabel>*/}
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(`${user.name} ${user.fatherLastName} ${user?.motherLastName || ''}`)}
-            >
-              {strings.actions.copyName}
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>{strings.actions.edit}</DropdownMenuItem>
-            <DropdownMenuItem>{strings.actions.delete}</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <UserRowActions user={user}/>
       );
     }
   }
