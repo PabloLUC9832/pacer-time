@@ -4,6 +4,7 @@ import {deleteUserSchema} from "@/lib/validations/user.schema";
 import {auth} from "@/lib/auth";
 import prisma from "../../../lib/prisma";
 import {revalidatePath} from "next/dist/server/web/spec-extension/revalidate";
+import {strings} from "@/constans/strings";
 
 export async function deleteUser(id: string) {
 
@@ -22,7 +23,7 @@ export async function deleteUser(id: string) {
   if (session?.user.id === id) {
     return {
       success: false,
-      error: "No puedes eliminar tu propio usuario"
+      error: `${strings.messages.cantDeleteYourself}`
     }
   }
 

@@ -39,7 +39,7 @@ export function UserRowActions({user} : Props) {
         toast.success("Usuario eliminado correctamente");
         setOpenDelete(false);
       } else {
-        toast.error("Error al eliminar el usuario");
+        toast.error(`Error al eliminar el usuario: ${result.error}`);
       }
     });
   }

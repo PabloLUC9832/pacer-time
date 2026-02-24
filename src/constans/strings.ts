@@ -5,6 +5,7 @@ export const strings = {
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
     createUsers: 'Crear usuarios',
+    editUser: 'Editar',
     uploadRunners: 'Cargar competidores',
     menu: 'Menú',
     account: {
@@ -75,5 +76,8 @@ export const strings = {
     delete: 'Eliminar',
     copyName: 'Copiar nombre',
     search: 'Buscar',
+  },
+  messages: {
+    cantDeleteYourself: 'No puedes eliminar tu propio usuario',
   }
 }
