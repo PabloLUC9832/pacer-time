@@ -4,13 +4,20 @@ import {Field, FieldGroup, FieldLabel} from "@/components/ui/field";
 import {Control, Controller, FieldErrors, UseFormRegister, useWatch} from "react-hook-form";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {strings} from "@/constans/strings";
-import {SignUpFormData} from "@/lib/validations/auth.schema";
 import {useEffect, useState} from "react";
+import { FieldValues, FieldPath, FieldError } from "react-hook-form";
 
-interface CountryStateCitySelectProps {
-  control: Control<SignUpFormData>;
-  register: UseFormRegister<SignUpFormData>;
-  errors: FieldErrors<SignUpFormData>;
+
+type WithLocationFields = {
+  country?: string;
+  state?: string;
+  city?: string;
+};
+
+interface CountryStateCitySelectProps<T extends FieldValues & WithLocationFields> {
+  control: Control<T>;
+  register: UseFormRegister<T>;
+  errors: FieldErrors<T>;
 }
 
 type Country = {
@@ -39,21 +46,23 @@ type City = {
 }
 
 
-export default function CountryStateCitySelect({ control, register, errors }: CountryStateCitySelectProps) {
+export default function CountryStateCitySelect<T extends FieldValues & WithLocationFields>(
+  { control, register, errors }: CountryStateCitySelectProps<T>
+) {
 
 
   const [countries, setCountries] = useState<Country[]>([]);
   const [states, setStates] = useState<State[]>([]);
   const [cities, setCities] = useState<City[]>([]);
 
-  const countrySelected = useWatch<SignUpFormData, "country">({
-    name: "country",
-    control: control,
+  const countrySelected = useWatch({
+    name: "country" as FieldPath<T>,
+    control,
   });
 
-  const stateSelected = useWatch<SignUpFormData, "state">({
-    name: "state",
-    control: control,
+  const stateSelected = useWatch({
+    name: "state" as FieldPath<T>,
+    control,
   });
 
   useEffect(() => {
@@ -107,7 +116,7 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
       <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.country}</FieldLabel>
         <Controller
-          name="country"
+          name={"country" as FieldPath<T>}
           control={control}
           render={({ field }) => (
             <Select
@@ -129,9 +138,9 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
             </Select>
           )}
         />
-        {errors.country && (
+        {(errors as Record<string, FieldError>)["country"] && (
           <p className="text-sm text-red-600">
-            {errors.country.message}
+            {(errors as Record<string, FieldError>)["country"].message}
           </p>
         )}
       </Field>
@@ -139,7 +148,7 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
       <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.state}</FieldLabel>
         <Controller
-          name="state"
+          name={"state" as FieldPath<T>}
           control={control}
           render={({ field }) => (
             <Select
@@ -161,9 +170,9 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
             </Select>
           )}
         />
-        {errors.state && (
+        {(errors as Record<string, FieldError>)["state"] && (
           <p className="text-sm text-red-600">
-            {errors.state.message}
+            {(errors as Record<string, FieldError>)["state"].message}
           </p>
         )}
       </Field>
@@ -171,7 +180,7 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
       <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.city}</FieldLabel>
         <Controller
-          name="city"
+          name={"city" as FieldPath<T>}
           control={control}
           render={({ field }) => (
             <Select
@@ -193,9 +202,9 @@ export default function CountryStateCitySelect({ control, register, errors }: Co
             </Select>
           )}
         />
-        {errors.city && (
+        {(errors as Record<string, FieldError>)["city"] && (
           <p className="text-sm text-red-600">
-            {errors.city.message}
+            {(errors as Record<string, FieldError>)["city"].message}
           </p>
         )}
       </Field>

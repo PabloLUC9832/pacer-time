@@ -9,7 +9,7 @@ model User {
   email          String  @unique /// Correo electrónico
   password       String /// Contraseña
   role           Role    @default(COMPETITOR)
-  eventName      String? @unique @map("event_name") /// Evento / Organizador del evento
+  eventName      String? @map("event_name") /// Evento / Organizador del evento
   city           String  @map("city") /// Ciudad
   state          String  @map("state") /// Estado
   country        String? @map("country") /// País

@@ -142,9 +142,6 @@ CREATE UNIQUE INDEX "events_modalities_genders_categories_event_id_modality_id_g
 -- CreateIndex
 CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
--- CreateIndex
-CREATE UNIQUE INDEX "users_event_name_key" ON "users"("event_name");
-
 -- AddForeignKey
 ALTER TABLE "competitors" ADD CONSTRAINT "competitors_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "events"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 

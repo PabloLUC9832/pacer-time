@@ -21,6 +21,7 @@ import {
 import {useState, useTransition} from "react";
 import {deleteUser} from "@/lib/actions/user.actions";
 import {toast} from "sonner";
+import {useRouter} from "next/navigation";
 
 interface Props {
   user: User;
@@ -28,6 +29,7 @@ interface Props {
 
 export function UserRowActions({user} : Props) {
 
+  const router = useRouter();
   const [openDelete, setOpenDelete] = useState(false);
   const [isPending, startTransition] = useTransition();
 
@@ -64,7 +66,9 @@ export function UserRowActions({user} : Props) {
             {strings.actions.copyName}
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>{strings.actions.edit}</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push(`/dashboard/admin/users/${user.id}`)}>
+            {strings.actions.edit}
+          </DropdownMenuItem>
           <DropdownMenuItem onSelect={() => setOpenDelete(true)}>{strings.actions.delete}</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
