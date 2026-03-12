@@ -13,7 +13,7 @@ export async function signUp(formData: FormData): Promise<ActionResponse> {
 
   try {
 
-    console.log('role:::', formData.get('role') ?? 'COMPETITOR')
+    //console.log('role:::', formData.get('role') ?? 'COMPETITOR')
 
     const rawData = {
       name : formData.get('name'),
