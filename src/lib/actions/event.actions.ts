@@ -3,6 +3,9 @@
 import {EventActionResponse, eventSchema} from "@/lib/validations/event.schema";
 import prisma from "../../../lib/prisma";
 import {auth} from "@/lib/auth";
+import { z } from "zod";
+import {strings} from "@/constans/strings";
+import {Prisma} from "../../../generated/prisma/client";
 
 export async function createEvent(formData: FormData): Promise<EventActionResponse> {
 
@@ -55,7 +58,34 @@ export async function createEvent(formData: FormData): Promise<EventActionRespon
     }
 
   } catch (error) {
-    //todo terminr las validaciones
+
+    if (error instanceof z.ZodError) {
+
+      console.error('Error en las validaciones del formulario: ',error.issues);
+
+      return {
+        success: false,
+        error: strings.auth.fields.checkFields,
+        fieldErrors: z.flattenError(error).fieldErrors,
+      }
+    }
+
+    if (error instanceof  Prisma.PrismaClientKnownRequestError) {
+      console.error('Error en las validaciones del formulario.', error.code, error.message);
+      if (error.code === "P2002") {
+        return {
+          success: false,
+          error: strings.auth.signUp.existingEmail,
+        };
+      }
+    }
+
+    return {
+      success: false,
+      error: `Error al crear el evento, ${error}`,
+    }
+
+
   }
 
 

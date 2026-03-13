@@ -5,6 +5,7 @@ export const strings = {
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
     createUsers: 'Crear usuarios',
+    createEvent: 'Crear event',
     editUser: 'Editar',
     uploadRunners: 'Cargar competidores',
     menu: 'Menú',
