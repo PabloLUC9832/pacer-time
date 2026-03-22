@@ -1,23 +1,31 @@
 import {z} from "zod";
 import {strings} from "@/constans/strings";
 
+const optionalUrl = z
+  .string()
+  .optional()
+  .refine(
+    (val) => !val || val === "" || z.url().safeParse(val).success,
+    { message: "URL inválida" }
+  );
 
 const eventSchema =
   z.object({
+    id: z.uuid("ID inválido").optional(),
     userId: z.uuid(),
     name: z.string().min(1, `${strings.events.nameRequired}`),
-    startsAt: z.coerce.date().optional(),
-    endsAt: z.coerce.date().optional(),
+    startsAt: z.coerce.date<Date>().optional(),
+    endsAt: z.coerce.date<Date>().optional(),
     city: z.string().optional(),
     state: z.string().optional(),
     country: z.string().optional(),
     edition: z.string().optional(),
-    logoUrl: z.url().optional(),
-    bannerUrl: z.url().optional(),
-    requiresTshirtSize: z.boolean().default(false),
-    customsQuestions: z.json().optional(),
-    waiverUrl: z.url().optional(),
-    webSiteUrl: z.url().optional(),
+    logoUrl: optionalUrl,
+    bannerUrl: optionalUrl,
+    requiresTshirtSize: z.boolean(),
+    customsQuestions: z.unknown().optional(),
+    waiverUrl: optionalUrl,
+    webSiteUrl: optionalUrl,
   });
 
 const deleteEventSchema =

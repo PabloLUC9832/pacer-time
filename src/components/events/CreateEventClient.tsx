@@ -7,19 +7,14 @@ import {createEvent} from "@/lib/actions/event.actions";
 import {toast} from "sonner";
 import EventForm from "@/components/events/EventForm";
 
-export default function CreateEventClient() {
+export default function CreateEventClient({userId}: {userId: string}) {
 
   const router = useRouter();
   const [generalError, setGeneralError] = useState<string | null>(null);
 
   async function handleSubmit(data: EventFormData) {
     setGeneralError(null);
-    const formData = new FormData();
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-
-    const result = await createEvent(formData);
+    const result = await createEvent(data);
 
     if (result.success) {
       toast.success("Evento creado correctamente");
@@ -37,7 +32,8 @@ export default function CreateEventClient() {
   return (
     <EventForm
       mode="create"
-      obSubmit={handleSubmit}
+      userId={userId}
+      onSubmit={handleSubmit}
       generalError={generalError}
     />
   );

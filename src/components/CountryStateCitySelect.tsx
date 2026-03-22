@@ -111,7 +111,7 @@ export default function CountryStateCitySelect<T extends FieldValues & WithLocat
   }, [countrySelected, stateSelected]);
 
   return (
-    <FieldGroup className="md:flex-3 md:flex-row">
+    <FieldGroup className="md:flex-3 md:flex-row mt-4">
 
       <Field className="min-w-0">
         <FieldLabel>{strings.auth.fields.country}</FieldLabel>

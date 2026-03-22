@@ -5,7 +5,7 @@ export const strings = {
     signUp: 'Crear cuenta',
     signIn: 'Iniciar sesión',
     createUsers: 'Crear usuarios',
-    createEvent: 'Crear event',
+    createEvent: 'Crear evento',
     editUser: 'Editar',
     uploadRunners: 'Cargar competidores',
     menu: 'Menú',
@@ -71,6 +71,7 @@ export const strings = {
     nameRequired: 'El nombre del evento es obligatorio',
     startsAtRequired: 'La fecha de inicio es obligatoria',
     endsAtRequired: 'La fecha de fin es obligatoria',
+    loading: 'Creando evento...',
   },
   actions: {
     edit: 'Editar',

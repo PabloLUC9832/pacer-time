@@ -1,52 +1,52 @@
 "use server";
 
-import {EventActionResponse, eventSchema} from "@/lib/validations/event.schema";
+import {EventActionResponse, EventFormData, eventSchema} from "@/lib/validations/event.schema";
 import prisma from "../../../lib/prisma";
 import {auth} from "@/lib/auth";
-import { z } from "zod";
+import {z} from "zod";
 import {strings} from "@/constans/strings";
 import {Prisma} from "../../../generated/prisma/client";
 
-export async function createEvent(formData: FormData): Promise<EventActionResponse> {
+export async function createEvent(data: EventFormData): Promise<EventActionResponse> {
 
   try {
 
     const session = await auth();
 
-    const rawData = {
-      name: formData.get('name'),
-      startsAt: formData.get('startsAt'),
-      endsAt: formData.get('endsAt'),
-      city: formData.get('city'),
-      state: formData.get('state'),
-      country: formData.get('country'),
-      edition: formData.get('edition'),
-      logoUrl: formData.get('logoUrl'),
-      bannerUrl: formData.get('bannerUrl'),
-      requiresTshirtSize: formData.get('requiresTshirtSize'),
-      customsQuestions: formData.get('customsQuestions'),
-      waiverUrl: formData.get('waiverUrl'),
-      webSiteUrl: formData.get('webSiteUrl'),
-    };
+    const validated = eventSchema.safeParse({
+      ...data,
+      userId: session?.user?.id,
+      logoUrl: data.logoUrl || undefined,
+      bannerUrl: data.bannerUrl || undefined,
+      waiverUrl: data.waiverUrl || undefined,
+      webSiteUrl: data.webSiteUrl || undefined,
+    });
 
-    const validatedData = eventSchema.parse(rawData);
+    if (!validated.success) {
+      console.error("Error en las validaciones del formulario:", validated.error.issues);
+      return {
+        success: false,
+        error: strings.auth.fields.checkFields,
+        fieldErrors: z.flattenError(validated.error).fieldErrors,
+      };
+    }
 
     const newEvent = await prisma.event.create({
       data: {
-        userId: session?.user.id ?? '',
-        name: validatedData.name,
-        startsAt: validatedData.startsAt,
-        endsAt: validatedData.endsAt,
-        city: validatedData.city ?? '',
-        state: validatedData.state ?? '',
-        country: validatedData.country ?? '',
-        edition: validatedData.edition,
-        logoUrl: validatedData.logoUrl,
-        bannerUrl: validatedData.bannerUrl,
-        requiresTshirtSize: validatedData.requiresTshirtSize,
-        customsQuestions: validatedData.customsQuestions ?? '{}',
-        waiverUrl: validatedData.waiverUrl,
-        webSiteUrl: validatedData.webSiteUrl,
+        userId: session?.user?.id ?? '',
+        name: validated.data.name,
+        startsAt: validated.data.startsAt,
+        endsAt: validated.data.endsAt,
+        city: validated.data.city ?? '',
+        state: validated.data.state ?? '',
+        country: validated.data.country ?? '',
+        edition: validated.data.edition,
+        logoUrl: validated.data.logoUrl,
+        bannerUrl: validated.data.bannerUrl,
+        requiresTshirtSize: validated.data.requiresTshirtSize,
+        customsQuestions: validated.data.customsQuestions ?? '{}',
+        waiverUrl: validated.data.waiverUrl,
+        webSiteUrl: validated.data.webSiteUrl,
       }
     });
 
@@ -55,23 +55,12 @@ export async function createEvent(formData: FormData): Promise<EventActionRespon
       data: {
         eventId: newEvent.id,
       }
-    }
+    };
 
   } catch (error) {
 
-    if (error instanceof z.ZodError) {
-
-      console.error('Error en las validaciones del formulario: ',error.issues);
-
-      return {
-        success: false,
-        error: strings.auth.fields.checkFields,
-        fieldErrors: z.flattenError(error).fieldErrors,
-      }
-    }
-
-    if (error instanceof  Prisma.PrismaClientKnownRequestError) {
-      console.error('Error en las validaciones del formulario.', error.code, error.message);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      console.error('Prisma error:', error.code, error.message);
       if (error.code === "P2002") {
         return {
           success: false,
@@ -80,14 +69,12 @@ export async function createEvent(formData: FormData): Promise<EventActionRespon
       }
     }
 
+    console.error('Error inesperado al crear evento:', error);
     return {
       success: false,
-      error: `Error al crear el evento, ${error}`,
-    }
-
+      error: `Error al crear el evento: ${error}`,
+    };
 
   }
-
-
 
 }
